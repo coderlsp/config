@@ -1,0 +1,98 @@
+"" Source your .vimrc
+"source ~/.vimrc
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+" Basic Settings
+set clipboard+=unnamed
+set keep-english-in-normal
+
+set which-key
+
+let mapleader=" "
+let g:WhichkeyDesc_
+
+" d: diff
+nmap <leader>dd <action>(Vcs.ShowTabbedFileHistory)
+
+" f: Find/Format ⭐️
+let g:WhichKeyDesc_FindOrFormat = "<leader>f FindOrFormat"
+let g:WhichKeyDesc_FindOrFormat_FindFile = "<leader>ff FindFile"
+nmap <leader>ff <action>(GotoFile)
+
+let g:WhichKeyDesc_FindOrFormat_FindSymbol= "<leader>fs FindSymbol"
+nmap <leader>fs <action>(GotoSymbol)
+
+let g:WhichKeyDesc_FindOrFormat_FindFileLocation = "<leader>fl FindFileLocation"
+nmap <leader>fl <action>(SelectInProjectView)
+
+let g:WhichKeyDesc_FindOrFormat_FindType= "<leader>ft FindType"
+nmap <leader>ft <action>(GotoType)
+
+let g:WhichKeyDesc_FindOrFormat_FindInPath= "<leader>ft FindInPath"
+nmap <leader>fd <action>(FindInPath)
+
+let g:WhichKeyDesc_FindOrFormat_Commands = "<leader>fc Commands"
+nmap <leader>fc <action>(GotoAction)
+
+let g:WhichKeyDesc_FindOrFormat_OpenedProject = "<leader>fp OpenedProject"
+nmap <leader>fp <action>(OpenProjectWindows)
+
+let g:WhichKeyDesc_FindOrFormat_Format = "<leader>fm Format"
+nmap <leader>fm <action>(ReformatCode) \| <action>(OptimizeImports)
+
+" s: Show ⭐️
+let g:WhichKeyDesc_Show = "<leader>s Show"
+let g:WhichKeyDesc_Show_FileStructure = "<leader>ss ShowFileStructure"
+nmap <leader>ss <action>(FileStructurePopup)
+let g:WhichKeyDesc_Show_Bookmarks = "<leader>sb ShowBookmarks"
+nmap <leader>sb <action>(ShowBookmarks)
+
+nmap <leader>re <action>(RenameElement)
+
+" w: Window ⭐️
+let g:WhichKeyDesc_Windows = "<leader>w Windows"
+let g:WhichKeyDesc_Windows_maximize = "<leader>wo maximize"
+nmap <leader>wo <action>(UnsplitAll) \| <action>(HideAllWindows)
+let g:WhichKeyDesc_Windows_splitWindowVertically = "<leader>wl splitWindowVertically"
+nmap <leader>wl <action>(Macro.SplitVertically)
+let g:WhichKeyDesc_Windows_closeActiveWindow = "<leader>wc closeActiveWindow"
+nmap <leader>wc <c-w>c
+
+" g: Git ⭐️
+let g:WhichKeyDesc_Git = "<leader>g Git"
+let g:WhichKeyDesc_Git_RollbackHunk = "<leader>gr RollbackHunk"
+nmap <leader>gr :action Vcs.RollbackChangedLines<CR>
+
+" no leader keymap
+nmap gd <action>(GotoDeclaration)
+nmap gr <action>(ActivateFindToolWindow)
+nmap gm <action>(MethodUp)
+nmap gi <action>(GotoImplementation)
+
+
+nmap L <action>(NextTab)
+nmap H <action>(PreviousTab)
