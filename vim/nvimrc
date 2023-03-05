@@ -1,0 +1,107 @@
+call plug#begin('~/.vim/plugged') " Plugin path
+"""""""""""""""""""""
+"      Plugins      "
+"""""""""""""""""""""
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'fatih/vim-go'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-commentary'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
+Plug 'majutsushi/tagbar'
+Plug 'easymotion/vim-easymotion'
+Plug '/usr/local/opt/fzf'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/gv.vim'
+Plug 'vijaymarupudi/nvim-fzf'
+Plug 'fatih/molokai'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-startify'
+call plug#end()
+
+map <F2> :NERDTreeMirror<CR>
+map <F2> :NERDTreeToggle<CR>
+" Tagbar 按键绑定
+map <F3> :TagbarToggle<CR>
+
+
+
+set mouse=n
+" 主题配色
+set nu
+syntax enable
+set t_Co=256
+let g:rehash256 = 1
+let g:molokai_original = 1
+colorscheme molokai
+
+" vim-go
+let g:go_fmt_command = 'gopls'
+let g:go_autodetect_gopath = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+
+" Open :GoDeclsDir with ctrl-g
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+
+augroup go
+        autocmd!
+        autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+augroup END
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gm <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap ss <Plug>(easymotion-s2)
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" ale-setting {{{
+let g:ale_set_highlights = 1
+let g:ale_set_quickfix = 1
+"自定义error和warning图标
+let g:ale_sign_error = '✗'
+"let g:ale_sign_warning = '⚡'
+let g:ale_sign_warning = '!'
+"let g:ale_sign_error = 'x'
+"let g:ale_sign_warning = '!'
+"在vim自带的状态栏中整合ale
+"let g:ale_statusline_format = ['✗%d', '⚡%d', 'OK']
+let g:ale_statusline_format = ['x%d', '!%d', 'OK']
+"显示Linter名称,出错或警告等相关信息
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"打开文件时不进行检查
+let g:ale_lint_on_enter = 1
+
+"普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
+nmap sp <Plug>(ale_previous_wrap_error)
+"--error
+nmap sn <Plug>(ale_next_wrap_error)
+"--error
+"<Leader>s触发/关闭语法检查
+" nmap <Leader>l :ALEToggle<CR>
+"<Leader>d查看错误或警告的详细信息
+nmap <Leader>d :ALEDetail<CR>
+let g:ale_linters = {
+\ 'go': ['golint', 'go vet', 'gofumpt'],
+\}
+
